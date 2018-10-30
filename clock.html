@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clock + Alarm</title>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#333" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="clock.css" />
+    <link rel="stylesheet" href="alarm.css" />
+  </head>
+
+  <body id="body">
+    <!-- Clock section - START -->
+    <div id="clock-container">
+      <div id="clock-wrapper">
+        <div id="clock-center"></div>
+        <div id="clock-second"></div>
+        <div id="clock-minute"></div>
+        <div id="clock-hour"></div>
+        <div id="inner-circle"></div>
+        <span class="displayed-digits">12</span>
+        <span class="displayed-digits">3</span>
+        <span class="displayed-digits">6</span>
+        <span class="displayed-digits">9</span>
+        <span id="am-pm">AM</span>
+      </div>
+      <div id="my-name"> - By @Power'f GOD⚡⚡ </div>
+    </div>
+    <!-- Clock section - END -->
+
+    <!-- Alarm section -->
+    <div id="alarm-dark-bg-overlay">
+      <div id="alarm-container">
+        <!-- + Add alarm -->
+        <div id="add-alarm-container" class="containers js--containers">
+          <div id="alarm-inputs-wrapper">
+            <input id="alarm-title" type="text" class="input" placeholder="⏰ Alarm Name" />
+            <select id="alarm-hr" class="input"></select> :
+            <select id="alarm-min" class="input"></select>
+            <select id="alarm-am-pm" class="input">
+              <option value="AM" class="input">AM</option>
+              <option value="PM" class="input">PM</option>
+            </select>
+          </div>
+          <div id="alarm-buttons-wrapper">
+            <select id="snooze-alarm" class="input">
+              <option value="" class="input">- &#8634; Snooze -</option>
+              <option value="1" class="input">&#8634; 1 minute</option>
+            </select>
+            <button id="add-alarm-button" class="input button">&#10010; Add</button>
+            <hr />
+            <button id="alarms-list-button" class="input switch button">&#9776; Alarms List</button>
+          </div>
+        </div>
+        <!-- Alarms List -->
+        <div id="alarms-list-container" class="containers js--containers">
+          <h3>- Alarms List -</h3>
+          <div id="alarms-list-wrapper"></div>
+          <button id="show-add-alarm-button" class="input switch button">&larr; Add an Alarm</button>
+        </div>
+        <!-- Show Active Alarm -->
+        <div id="show-active-alarm-container" class="containers js--containers">
+          <span id="show-active-alarm-id"></span>
+          <span id="show-active-alarm-title">Alarm</span>
+          <h3 id="show-active-alarm-time">06:00AM</h3>
+          <div id="show-active-alarm-buttons-wrapper">
+            <button id="snooze-active-alarm-button" class="button">&#8634; Snooze</button>
+            <button id="dismiss-active-alarm-button" class="button">&#10003; Dismiss</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Alarm section - END -->
+
+    <!-- FAB Icon button -->
+    <div id="show-alarm-UI-fab-button">
+      <div id="show-alarm-UI-fab-icon-wrapper">
+        <div id="fab-plus-vertical"></div>
+        <div id="fab-plus-horizontal"></div>
+        <div id="fab-descriptor">Add Alarm</div>
+      </div>
+    </div>
+
+    <!-- Alarm Tone -->
+    <audio controls id="alarm-tone" loop>
+      <source id="alarm-tone-source" src="" type="audio/mpeg" />
+    </audio>
+
+    <!-- Select Alarm Tone -->
+    <div id="choose-alarm-tone-button">
+      <span id="choose-alarm-tone-icon">&#9835;</span>
+      <span id="alarm-tone-button-descriptor">Choose Alarm tone</span>
+      <div id="alarm-tones-wrapper">
+        <select id="select-alarm-tone"></select>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast-wrapper">
+      <span id="toast"></span>
+    </div>
+    
+    <script src="clock.js"></script>
+    <script src="alarm.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+

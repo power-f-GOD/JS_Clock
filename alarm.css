@@ -1,0 +1,602 @@
+  
+  /* Alarm Section --> */
+
+      #alarm-dark-bg-overlay
+      {
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        justify-content: center;
+        z-index: 5;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+      }
+
+      #alarm-container
+      {
+        align-self: center;
+        height: 238px;
+        max-height: 98%;
+        width: 305px;
+        background: gainsboro;
+        color: black;
+        overflow: hidden;
+        box-shadow: 0 10px 30px black, 0 5px 15px black, 
+            8px 0 6px #666 inset, -8px 0 6px #666 inset;
+        -webkit-transition: 0.25s;
+        transition: 0.25s;
+      }
+
+      .scale
+      { -webkit-animation: scale 3s infinite; }
+      @-webkit-keyframes scale
+      {
+        0% { -webkit-transform: scale(1.0); }
+        10% { -webkit-transform: scale(0.9); }
+        20% { -webkit-transform: scale(1.0); }
+        100% { -webkit-transform: scale(1.0); }
+      }
+
+      .button
+      { 
+        cursor: pointer;
+        box-shadow: 0 2px 0 #444 !important; 
+      }
+
+      .button:hover
+      { box-shadow: 0 1px 0 #444 !important; }
+
+      .containers
+      {
+        opacity: 0;                 
+        display: none;
+        padding-bottom: 20px;
+        height: auto;                 
+                                            /* border: 2px solid deeppink; */
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+      }
+
+      .unbolden
+      { font-weight: normal; }
+
+      
+      /* Add Alarm UI -- START */
+
+      #alarm-title
+      {
+        width: 100%;
+        height: 40px !important;
+        background: black;
+        display: block;
+        text-align: center;
+        margin: 0 auto 10px auto !important;
+        font-size: 16px !important;
+      }
+
+      #alarm-inputs-wrapper
+      {
+        font-size: 25px;
+        font-weight: bold;
+        padding: 20px 25px 10px 25px; 
+      }
+
+      #alarm-inputs-wrapper select
+      {
+        background: black;
+        color: gainsboro;
+        height: 35px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 18px;
+        margin: 0px;
+      }
+
+      #alarm-am-pm
+      {
+        background: none;
+        background: black;
+        border-radius: 3px;
+        height: 30px;
+      }
+
+      .input
+      {
+        font-family: "Trebuchet MS";
+        color: white;
+        border-radius: 5px;
+        border: none;
+        width: 70px;
+        margin: 0;
+        padding: 5px 5px;
+      }
+
+      #alarm-buttons-wrapper
+      {
+        padding: 0 25px;
+        text-align: left;
+      }
+
+      #snooze-alarm,
+      .switch,
+      #add-alarm-button
+      {
+        width: 122px;
+        height: 38px;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 8px;
+      }
+
+      #snooze-alarm
+      {
+        background: deeppink;
+        margin-right: 6px;
+      }
+
+      #snooze-alarm option
+      {
+        background: black;
+        margin-right: 5px;
+      }
+      
+      #add-alarm-button
+      {
+        background:  rgb(30, 175, 30);
+      }
+
+      hr
+      {
+        margin: 20px -17px;
+        width: 290px;
+        border: 0.5px solid #bbb;
+      }
+
+      .switch
+      {
+        background: rgb(50, 70, 220);
+        width: 50%;
+        display: block;
+        margin: 0 25%;
+        border-radius: 20px;
+      }
+
+      /* Add Alarm UI - END */
+      
+
+
+      /* Alarms List UI - START */
+
+      #alarms-list-container
+      { display: none; }
+
+      .alarm-list-id
+      {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      #alarms-list-container h3
+      {
+        margin: 0;
+        padding: 15px 20px;
+        text-align: left;
+        font-size: 20px;
+      }
+
+      #alarms-list-wrapper
+      {
+        border-top: 0.5px solid #bbb;
+        border-bottom: 0.5px solid #bbb;
+        overflow-x: hidden !important;                               /*  border: 2px solid yellow; */
+      }
+
+      .alarm-list-item
+      {
+        border-top: 0.5px solid #bbb;             
+        opacity: 0;     
+        margin-left: 120%;
+        word-wrap: break-word;
+        width: 100%;
+        -webkit-transition: height 0.4s, margin-left 0.45s, opacity 0.65s;
+        transition: height 0.4s, margin-left 0.45s, opacity 0.65s;
+      }
+
+      .alarm-list-item-wrapper
+      {
+        position: relative;
+        text-align: left;
+        padding: 15px 20px;
+        font-size: 15px;
+      }
+
+      .alarm-list-title
+      {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .alarm-list-time
+      { font-size: 18px; }
+
+      .alarm-delete-button
+      {
+        padding: 5px 7px;
+        border-radius: 15px;
+        background: none;
+        color: indianred;
+        border: none;
+        position: absolute;
+        bottom: 8px;
+        right: 10px;
+        -webkit-transition: 0.2s;
+        transition: 0.2s;
+      }
+
+      .alarm-delete-button:hover
+      {
+        margin-right: 10px;
+        background: indianred;
+        color: gainsboro;
+      }
+
+      #show-add-alarm-button
+      { margin: 20px 25% 0 25%; }
+
+      /* Alarms List UI - END */
+
+
+
+      /* Show Active Alarm UI - START */
+
+      #show-active-alarm-container
+      { 
+        padding: 27px 30px;
+        height: auto;
+      }
+
+      #show-active-alarm-id
+      {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      #show-active-alarm-title
+      {
+        display: block;
+        font-size: 16px;
+        padding: 0;
+        max-height: 200px;
+        overflow: auto;
+        word-wrap: break-word;
+      }
+
+      #show-active-alarm-time
+      {
+        font-size: 24px;
+        margin: 0;
+        padding: 20px 0;
+        margin-bottom: 10px;
+      }
+
+      #show-active-alarm-buttons-wrapper
+      {
+        height: 38px;
+        width: 100%;
+      }
+
+      #snooze-active-alarm-button,
+      #dismiss-active-alarm-button
+      {
+        height: 38px;
+        margin: 0;
+        float: left;
+        border: none;
+        color: white;
+        font-size: 12px;
+        padding: auto;
+      }
+
+      #snooze-active-alarm-button
+      {
+        background: deeppink;
+        border-radius: 3px 0 0 3px;
+        display: none;
+        width: 50%;
+      }
+
+      #dismiss-active-alarm-button
+      {
+        background: rgb(30, 30, 220);
+        border-radius: 3px;
+        width: 100%;
+      }
+
+      /* Show Active Alarm UI -- END */
+
+
+
+      /* FAB icon -- START */
+      
+      #show-alarm-UI-fab-button
+      {
+        position: fixed;
+        z-index: 10;
+        bottom: 20px;
+        right: 20px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      #show-alarm-UI-fab-icon-wrapper
+      {
+        height: 55px;
+        max-height: 55px;
+        width: 55px;
+        border-radius: 50%;
+        background: tomato;
+        position: relative;
+        box-shadow: 0 5px 15px black;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+      }
+
+      #show-alarm-UI-fab-button:hover #show-alarm-UI-fab-icon-wrapper
+      { background: rgb(252, 49, 13); }
+
+      #fab-plus-vertical,
+      #fab-plus-horizontal
+      {
+        border-radius: 2px;
+        position: absolute;
+        background: white;
+        -webkit-transition: -webkit-transform 0.5s ease-in-out;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      #fab-plus-vertical
+      {
+        height: 28px;
+        width: 4px;
+        left: 26px;
+        top: 14px;
+      }
+
+      #fab-plus-horizontal
+      {
+        height: 4px;
+        width: 28px;
+        left: 14px;
+        top: 25.5px;
+      }
+
+      #fab-descriptor
+      {
+        position: absolute;
+        bottom: 22.5px;
+        font-size: 11px;
+        right: 60px;
+        display: block;
+        width: 150%;
+        visibility: hidden;
+        opacity: 0;
+        text-align: right;
+        -webkit-transition: 0.2s;
+        transition: 0.2s;
+      }
+
+      #show-alarm-UI-fab-button:hover #fab-descriptor
+      { 
+        visibility: visible; 
+        opacity: 1;
+      }
+
+      .rotateLeft
+      {
+        -webkit-transform: rotate(-225deg);
+        transform: rotate(-225deg);
+      }
+      
+      /* FAB icon -- END */
+
+
+
+      /* Choose alarm tone -- START */
+
+      #alarm-tone
+      { 
+        position: absolute;
+        display: none;
+      }
+
+      #choose-alarm-tone-button
+      {
+        background: royalblue;
+        position: fixed;
+        height: 45px;
+        width: 45px;
+        display: flex;
+        border-radius: 50%;
+        bottom: 92px;
+        right: 25px;
+        z-index: 11;
+        color: white;
+        box-shadow: 0 4px 15px black;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+      }
+
+      #choose-alarm-tone-button:hover
+      { background: rgb(19, 19, 245); }
+
+      #choose-alarm-tone-icon
+      {
+        font-size: 23px;
+        align-self: center;
+        background: none;
+        padding: 8px 13px;
+        border-radius: 50%;
+      }
+      
+      #alarm-tone-button-descriptor
+      {
+        font-size: 11px;
+        width: 114px;
+        right: 50px;
+        text-align: right;
+        margin-top: -1px;
+        display: inline-block;
+        align-self: center;
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        -webkit-transition: 0.2s;
+        transition: 0.2s;
+      }
+
+      select#select-alarm-tone:hover #alarm-tone-button-descriptor
+      {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .show
+      {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+
+      #alarm-tones-wrapper
+      { position: relative; }
+      
+      select#select-alarm-tone
+      {
+        position: absolute;
+        top: 10px;
+        right: 49px;
+        visibility: hidden;
+        opacity: 0;
+        padding: 4px 3.5px;
+        background: rgb(5, 5, 195);
+        color:white;
+        border: none;
+        border-radius: 4px;
+        font-size: 13px;
+        font-family: 'Trebuchet MS';
+        -webkit-transition: 0.25s;
+        transition: 0.25s;
+      }
+
+      select#select-alarm-tone option
+      { background: black; }
+
+
+      /* Choose alarm tone -- END */
+
+
+
+      /* Set alarm red dots -- START */
+
+      .set-alarm-dot-wrapper
+      {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgb(231, 40, 40);
+        display: inline-block;
+        box-shadow: 1px 1px 2px black;
+        z-index: 5;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: -webkit-transform 0.4s;
+        transition: transform 0.4s;
+      }
+
+      .set-alarm-dot-wrapper:hover .alarm-dot-time
+      { 
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .set-alarm-dot
+      { position: relative; }
+
+      .alarm-dot-time
+      {
+        font-size: 10px;
+        position: absolute;
+        top: -14px;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        padding: 3px 4px;
+        border-radius: 3px;
+        background: #000;
+        -webkit-transition: 0.2s;
+        transition: 0.2s;
+      }
+
+      .scale-dot
+      {
+        -webkit-transform: scale(1) !important;
+        transform: scale(1) !important;
+      }
+
+      /* Set alarm red dots -- END */
+
+
+
+      #toast-wrapper
+			{
+				height: auto;
+        width: auto;
+        max-width: 60%;
+				margin-bottom: 10vh;
+				padding: 0;
+				text-align: center;
+				position: fixed;
+        bottom: 0;
+				display: none;
+				opacity: 0;
+				z-index: 12;
+				-webkit-transition: opacity 0.3s ease-in-out;
+				transition: opacity 0.3s ease-in-out;
+			}
+			
+			#toast
+			{
+        font-size: 90%;
+        padding: 11px 14px;
+        width: auto;
+				background: #0b0b0b;
+				display: inline-block;
+				color: #eee;
+				border-radius: 5px;
+        line-height: 145%;
+        box-shadow: 3px 0 5px #000 inset, -3px 0 5px #000 inset,
+          0 2px 6px #1a1a1a; 
+			}
+
+
+
+
+
+
+
+      
+
+
+
