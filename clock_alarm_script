@@ -190,10 +190,15 @@ function initializeAlarm()
 
       
   //checking if any alarms exist in storage and loading them
-  if (storageIsEnabled)
-    for (let id in localStorage)
-      if (id.match(/\d+:\d+(AM|PM)/))
-        setAlarms.push(JSON.parse(localStorage[id]));
+  try 
+  {
+    if (storageIsEnabled)
+      for (let id in localStorage)
+        if (id.match(/\d+:\d+(AM|PM)/))
+          setAlarms.push(JSON.parse(localStorage[id]));
+  }
+  catch (e) { toast("Something went wrong. Could not access storage on your browser/device. Consider enabling cookies"); }
+
   
 
   
@@ -266,7 +271,8 @@ function initializeAlarm()
         alarm.remove(delButton);
         //to avoid display of alarms-list-wrapper side scroll bar on list-item deletion transition (animation)
         setTimeout(() => ID("alarms-list-wrapper").style.overflow = "auto", 1000);
-        delete localStorage[id];
+        try { delete localStorage[id]; }
+        catch (e) { toast("Something went wrong. Could not access storage on your browser/device. Consider enabling cookies"); }
         ID(`${alarm.id}`).classList.remove("scale-dot");
         setTimeout(() => ID(`${alarm.id}`).parentNode.removeChild(ID(`${alarm.id}`)), 300);
       }, 550);
@@ -705,10 +711,12 @@ function initializeAlarm()
     }
     
     //store/save 'manifest' of set alarm in localStorage
-    if (storageIsEnabled)
-      localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
-    else
-      setTimeout(() => toast(`Something went wrong. <br /> ${alarm.time} alarm was added but wasn't saved. <br />Ensure your browser cookies are enabled.`), 4000)
+    try 
+    {
+      if (storageIsEnabled)
+        localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
+    }
+    catch (e) { setTimeout(() => toast(`Something went wrong. <br /> ${alarm.time} alarm was added but wasn't saved. <br />Consider enabling your browser cookies.`), 4000); } 
   }
 
 
@@ -926,7 +934,6 @@ function toast(text)
     ID("toast-wrapper").style.transition = `opacity ${dur}s ease-out`;
   }
 }
-
 
 
 
