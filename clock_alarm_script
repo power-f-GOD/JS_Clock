@@ -154,8 +154,9 @@ function initializeAlarm()
   
 
   let windowJustLoaded = true;
-  //using 'mouseover' event handler to kinda prevent the 'user interaction gesture error' on Chrome on autoplay/play of alarm tone/audio when page just loads
-  window.onmouseover = () => windowJustLoaded = false;
+  //using 'click' event handler to kinda prevent the 'user interaction gesture error' on Chrome on autoplay/play of alarm tone/audio when page just loads
+  window.onclick = () => windowJustLoaded = false;
+
 
 
   //resize alarm container on screen/window resize
@@ -433,7 +434,7 @@ function initializeAlarm()
       {
         alarmContainer.classList.add("scale");
         ID("alarm-tone-amazing").play();
-        ID("alarm-tone-amazing").muted = false;
+        setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
       }
       setTimeout(() => container.style.opacity = 1, 350);
     }, 10);
