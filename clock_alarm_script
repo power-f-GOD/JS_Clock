@@ -882,7 +882,7 @@ function initializeAlarm()
   //Say "Hello!" on page load
   setTimeout(() => {
     toast("Hi, there! Welcome. 😊");
-    console.log("App loaded successfully.");
+    console.log("App loaded and ready.");
   }, 1500);
 }
 
