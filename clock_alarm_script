@@ -716,7 +716,7 @@ function initializeAlarm()
       if (storageIsEnabled)
         localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
       else
-        setTimeout(() => toast(`${alarm.time} alarm was added but wasn't saved. <br />Consider enabling your browser cookies.`), 4000); }
+        setTimeout(() => toast(`${alarm.time} alarm was added but wasn't saved. <br />Consider enabling your browser cookies.`), 4000);
     }
     catch (e) { setTimeout(() => toast(`Something went wrong. <br />Couldn't save ${alarm.time} alarm. <br />Access to storage on your device was denied.`), 4000); } 
   }
