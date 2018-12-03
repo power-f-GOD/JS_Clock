@@ -433,8 +433,7 @@ function initializeAlarm()
       if (activeAlarmUIIsActive)
       {
         alarmContainer.classList.add("scale");
-        ID("alarm-tone-amazing").play();
-        setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
+        
       }
       setTimeout(() => container.style.opacity = 1, 350);
     }, 10);
@@ -774,6 +773,8 @@ function initializeAlarm()
             if (new RegExp(alarmTones[tone]).test(alarm.alarmTone))
               toast(`Alarm tone: "${tone}"`);
         }, 1000);
+        ID("alarm-tone-amazing").play();
+        setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
       }
     
       let snoozeTime, snoozeGrammar;
