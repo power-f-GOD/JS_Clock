@@ -776,6 +776,7 @@ function initializeAlarm()
               toast(`Alarm tone: "${tone}"`);
         }, 1000);
         playAlarmTone = ID("alarm-tone-amazing").play();
+        console.log(playAlarmTone);
         setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
       }
     
