@@ -149,7 +149,8 @@ function initializeAlarm()
       addAlarmUIIsActive = false,
       alarmsListUIIsActive = false,
       activeAlarmUIIsActive = false,
-      setAlarms = [];
+      setAlarms = [],
+      playAlarmTone = undefined;
   
   
 
@@ -386,8 +387,9 @@ function initializeAlarm()
   //hides alarm container
   function hideAlarmContainer()
   {
-    ID("alarm-tone-amazing").pause();
-    alarmContainer.classList.remove("scale")
+    if (activeAlarmUIIsActive)
+      playAlarmTone.then(() => ID("alarm-tone-amazing").pause());
+    alarmContainer.classList.remove("scale");
     //this loop fades out all alarm sub-containers
     for (let i = 0; i < 3; i++)
       queryAll(".js--containers")[i].style.opacity = 0;
@@ -773,7 +775,7 @@ function initializeAlarm()
             if (new RegExp(alarmTones[tone]).test(alarm.alarmTone))
               toast(`Alarm tone: "${tone}"`);
         }, 1000);
-        ID("alarm-tone-amazing").play();
+        playAlarmTone = ID("alarm-tone-amazing").play();
         setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
       }
     
