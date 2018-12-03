@@ -198,7 +198,7 @@ function initializeAlarm()
         if (id.match(/\d+:\d+(AM|PM)/))
           setAlarms.push(JSON.parse(localStorage[id]));
   }
-  catch (e) { toast("Something went wrong. Could not access storage on your browser/device. Consider enabling cookies"); }
+  catch (e) { toast("Something went wrong. <br />Access to storage on your device was denied."); }
 
   
 
@@ -273,7 +273,7 @@ function initializeAlarm()
         //to avoid display of alarms-list-wrapper side scroll bar on list-item deletion transition (animation)
         setTimeout(() => ID("alarms-list-wrapper").style.overflow = "auto", 1000);
         try { delete localStorage[id]; }
-        catch (e) { toast("Something went wrong. Could not access storage on your browser/device. Consider enabling cookies"); }
+        catch (e) { toast("Something went wrong. <br />Couldn't perform delete operation.<br />Access to storage on your device was denie"); }
         ID(`${alarm.id}`).classList.remove("scale-dot");
         setTimeout(() => ID(`${alarm.id}`).parentNode.removeChild(ID(`${alarm.id}`)), 300);
       }, 550);
@@ -716,8 +716,10 @@ function initializeAlarm()
     {
       if (storageIsEnabled)
         localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
+      else
+        setTimeout(() => toast(`${alarm.time} alarm was added but wasn't saved. <br />Consider enabling your browser cookies.`), 4000); }
     }
-    catch (e) { setTimeout(() => toast(`Something went wrong. <br /> ${alarm.time} alarm was added but wasn't saved. <br />Consider enabling your browser cookies.`), 4000); } 
+    catch (e) { setTimeout(() => toast(`Something went wrong. <br />Couldn't save ${alarm.time} alarm. <br />Access to storage on your device was denied.`), 4000); } 
   }
 
 
