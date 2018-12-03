@@ -711,7 +711,7 @@ function initializeAlarm()
     }
     
     //store/save 'manifest' of set alarm in localStorage
-    try 
+    try
     {
       if (storageIsEnabled)
         localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
