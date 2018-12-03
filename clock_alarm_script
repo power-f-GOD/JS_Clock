@@ -768,7 +768,7 @@ function initializeAlarm()
       if (!activeAlarmUIIsActive)
       {
         ID("alarm-tone-source").src = alarm.alarmTone;
-        ID("alarm-tone-amazing").load();
+        console.log(ID("alarm-tone-amazing").load());
         setTimeout(() => {
           showAlarmContainer(activeAlarmContainer, 3);
           for (let tone in alarmTones)
@@ -776,7 +776,6 @@ function initializeAlarm()
               toast(`Alarm tone: "${tone}"`);
         }, 1000);
         playAlarmTone = ID("alarm-tone-amazing").play();
-        console.log(playAlarmTone);
         setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
       }
     
