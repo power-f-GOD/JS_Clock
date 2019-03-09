@@ -12,8 +12,38 @@ var sec, min, hr, clock, secondHand, minuteHand, hourHand, secDeg,
     minDeg, hrDeg, clockRadius, start, spanDeg, _top, right, clockIsPaused;
 
 
+
 function initializeClock()
 {
+  //for fullscreen toggling
+  let doc = window.document,
+      docEl = doc.documentElement,
+      requestFullscreen = docEl.requestFullscreen || docEl.webkitRequestFullScreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen,
+      exitFullscreen = doc.exitFullscreen || doc.webkitExitFullScreen || doc.mozCancelFullScreen || doc.msExitFullscreen;
+      
+  if (requestFullscreen)
+    query("body").addEventListener('dblclick', function(e) 
+    {
+      if (e.target != this) return;
+      
+      if (window.innerHeight == screen.height || this.classList.contains('fullscreen-enabled'))
+        exitFullscreen.call(doc),
+        this.classList.remove('fullscreen-enabled');
+      else
+        requestFullscreen.call(docEl),
+        this.classList.add('fullscreen-enabled');
+    });
+    
+    
+    if (!sessionStorage.getItem('userHasVisited'))
+    {
+      if (requestFullscreen)
+        alert('You can toggle full screen by double tapping/clicking any area on the dark background.');
+      sessionStorage.setItem('userHasVisited', 1);
+    }
+      
+  
+  
   //loading clock ----->
   function loadClock()
   {
