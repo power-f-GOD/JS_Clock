@@ -35,7 +35,7 @@ function initializeAlarm()
 
   let windowJustLoaded = true;
   //using 'mouseover' event handler to kinda prevent the 'user interaction gesture error' on Chrome on autoplay/play of alarm tone/audio when page just loads
-  window.onmouseover = () => windowJustLoaded = false;
+  window.onclick = () => windowJustLoaded = false;
 
 
   //resize alarm container on screen/window resize
@@ -177,9 +177,7 @@ function initializeAlarm()
   fabButton.onclick = function()
   {
     //clears function timeout incase user dblclicks before function is completed 
-    if (show_hide)
-      console.log(show_hide);
-      //clearTimeout(show_hide);
+    
     //using a setTimeout function to control show/hide misbehaviour on dblclick of fab button
     show_hide = setTimeout(() =>
     {
@@ -201,14 +199,6 @@ function initializeAlarm()
       setTimeout(() => queryAll(".alarm-list-item")[i].style.marginLeft = "120%", 100);
   }
 
-
-
-  //hides alarm on click of dark bg (similar to behaviours on mobile apps)
-  darkBgOverlay.onclick = function(e)
-  {
-    if (e.target == this && !activeAlarmUIIsActive)
-      fabButton.onclick();
-  }
 
 
 
