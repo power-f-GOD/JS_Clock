@@ -106,7 +106,7 @@
 
       .input
       {
-        font-family: "Trebuchet MS";
+        font-family: 'PT Sans', 'Trebuchet MS', Sans;
         color: white;
         border-radius: 5px;
         border: none;
@@ -194,7 +194,8 @@
       {
         border-top: 0.5px solid #bbb;
         border-bottom: 0.5px solid #bbb;
-        overflow-x: hidden !important;                               /*  border: 2px solid yellow; */
+        overflow-x: hidden !important;                                
+        /* border: 2px solid yellow; */
       }
 
       .alarm-list-item
@@ -494,7 +495,7 @@
         border: none;
         border-radius: 4px;
         font-size: 13px;
-        font-family: 'Trebuchet MS';
+        font-family: 'PT Sans', 'Trebuchet MS', Sans;
         -webkit-transition: 0.25s;
         transition: 0.25s;
       }
@@ -588,7 +589,42 @@
         line-height: 145%;
         box-shadow: 3px 0 5px #000 inset, -3px 0 5px #000 inset,
           0 2px 6px #1a1a1a; 
-			}
+      }
+      
+
+
+      @media screen and (min-width: 770px)
+      {
+        #alarms-list-wrapper::-webkit-scrollbar
+        { width: 7px; }
+        
+        #alarms-list-wrapper::-moz-scrollbar
+        { width: 7px; }
+    
+        #alarms-list-wrapper::-webkit-scrollbar-track
+        {
+          border-radius: 10px;
+          background: transparent;
+        }
+        
+        #alarms-list-wrapper::-moz-scrollbar-track
+        {
+          border-radius: 10px;
+          background: dimgrey;
+        }
+    
+        #alarms-list-wrapper::-webkit-scrollbar-thumb
+        {
+          background: gainsboro;
+          border-radius: 10px;
+        }
+        
+        #alarms-list-wrapper::-moz-scrollbar-thumb
+        {
+          background: gainsboro;
+          border-radius: 10px;
+        }
+      }
 
 
 
