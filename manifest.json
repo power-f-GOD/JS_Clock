@@ -1,0 +1,14 @@
+{
+  "short_name": "JS Clock + Alarm",
+  "name": "JS Clock + Alarm",
+  "icons": [
+    {
+      "src": "js_clock.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "clock.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}
