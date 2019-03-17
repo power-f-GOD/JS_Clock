@@ -5,6 +5,9 @@ this.addEventListener("DOMContentLoaded", initializeAlarm);
 
 function initializeAlarm()
 {
+  window.name = 'js_clock';
+  
+  
   //Alarm script section ----->
   const fabButton = ID("show-alarm-UI-fab-button"),
         darkBgOverlay = ID("alarm-dark-bg-overlay"),
@@ -198,6 +201,14 @@ function initializeAlarm()
     for (let i = 0; i < queryAll(".alarm-list-item").length; i++)
       setTimeout(() => queryAll(".alarm-list-item")[i].style.marginLeft = "120%", 100);
   }
+  
+  
+  
+  darkBgOverlay.onclick = function(e)
+  {
+    if (e.target == this && (addAlarmUIIsActive || alarmsListUIIsActive))
+      fabButton.onclick();
+  };
 
 
 
@@ -615,6 +626,8 @@ function initializeAlarm()
     
     function activateAlarm()
     {
+      window.open('', 'js_clock').focus();
+      
       if (alarm.isSnoozed)
         hideOrShowSnoozeButton(true);
       else
