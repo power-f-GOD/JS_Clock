@@ -58,7 +58,7 @@ function initializeAlarm()
     "Sleep Away": "sleep_away"
   };
   for (let name in alarmTones)
-    selectAlarmTone.insertAdjacentHTML("beforeend", `<option value="tones/${alarmTones[name]}.mp3">${name}</option>`);
+    selectAlarmTone.insertAdjacentHTML("beforeend", `<option value="https://raw.githubusercontent.com/power-f-GOD/JS_Clock/master/tones/${alarmTones[name]}.mp3">${name}</option>`);
 
   for (let i = 1, j; i < 13; i++)
     j = i < 10 ? "0" + i : i,
