@@ -42,6 +42,11 @@ function initializeClock()
       sessionStorage.setItem('userHasVisited', 1);
     }
       
+      
+  //hide 000webhost sub-screen image link
+  for (let a of document.querySelectorAll('a'))
+    if (/footer_img$/.test(a.href))
+      a.style.display = 'none';
   
   
   //loading clock ----->
@@ -59,7 +64,11 @@ function initializeClock()
     minDeg = (min + (sec / 60)) * 6; 
     hrDeg = ((hr - 12) * 30) + ((min / 60) * 30);
   }
-  document.addEventListener("visibilitychange", loadClock);
+  document.addEventListener("visibilitychange", function()
+  {
+    if (this.visibilitystate == 'visible')
+      loadClock();
+  });
   loadClock();
   
   clockRadius = ((clock.offsetWidth - 20) / 2);
@@ -158,7 +167,7 @@ function initializeClock()
 
 
 
-//alert("Hi, there! :) \n\nClick on my name to freeze time. ;)");
+alert("Hi, there! :) \n\nClick on my name to freeze time. ;)");
 
 //alert("Waaaaooh!😮 Code Of The Day!😀 Thank you so much, SoloLearn, for this. What a great honour!🤗 \n\nAnd thanks, guys. You all did it!😊 \n\nWaoh! This is great!😊")
  
