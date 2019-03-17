@@ -1,4 +1,3 @@
-
 //Selectors
 var ID = document.getElementById.bind(document);
 var query = document.querySelector.bind(document);
@@ -162,26 +161,20 @@ function initializeClock()
  
  
  
+
+
+
 alert("Hi, there! :) \n\nClick on my name to freeze time. ;)");
 
-
-
-
-
  
  
  
  
-
+ 
 //Note: The variables 'hr', 'min' and 'clockRadius' as used in this particular script are global variables from the other script, 'clock.js'.
-
-this.addEventListener("DOMContentLoaded", initializeAlarm);
 
 function initializeAlarm()
 {
-  window.name = 'js_clock';
-  
-  
   //Alarm script section ----->
   const fabButton = ID("show-alarm-UI-fab-button"),
         darkBgOverlay = ID("alarm-dark-bg-overlay"),
@@ -206,7 +199,8 @@ function initializeAlarm()
       addAlarmUIIsActive = false,
       alarmsListUIIsActive = false,
       activeAlarmUIIsActive = false,
-      setAlarms = [];
+      setAlarms = [],
+      playAlarmTone = undefined;
   
   
 
@@ -232,7 +226,7 @@ function initializeAlarm()
     "Sleep Away": "sleep_away"
   };
   for (let name in alarmTones)
-    selectAlarmTone.insertAdjacentHTML("beforeend", `<option value="https://raw.githubusercontent.com/power-f-GOD/JS_Clock/master/tones/${alarmTones[name]}.mp3">${name}</option>`);
+    selectAlarmTone.insertAdjacentHTML("beforeend", `<option value="tones/${alarmTones[name]}.mp3">${name}</option>`);
 
   for (let i = 1, j; i < 13; i++)
     j = i < 10 ? "0" + i : i,
@@ -249,11 +243,15 @@ function initializeAlarm()
 
       
   //checking if any alarms exist in storage and loading them
-  if (storageIsEnabled)
-    for (let id in localStorage)
-      if (id.match(/\d+:\d+(AM|PM)/))
-        setAlarms.push(JSON.parse(localStorage[id]));
-        // delete localStorage[id];
+  try 
+  {
+    if (storageIsEnabled)
+      for (let id in localStorage)
+        if (id.match(/\d+:\d+(AM|PM)/))
+          setAlarms.push(JSON.parse(localStorage[id]));
+  }
+  catch (e) { toast("Something went wrong. <br />Access to storage on your device was denied."); }
+
   
 
   
@@ -292,13 +290,13 @@ function initializeAlarm()
         alarm[prop] = JSON.parse(alarm[prop]);
       else if (Number(alarm[prop]) && (prop != "hr" && prop != "min")) //prevent 'hr' and 'min' props from being converted to Numbers to preserve leading zeroes if there be any
         alarm[prop] = Number(alarm[prop]);
-    appendAlarmToAlarmsList(alarm, alarm.id, alarm.title, alarm.hr, alarm.min, alarm.am_pm);
+    appendAlarmToAlarmsList(alarm, alarm.id, alarm.title, alarm.hr, alarm.min, alarm.am_pm, true);
   }
   
 
   
   //appends set Alarm to Alarms List
-  function appendAlarmToAlarmsList(currentAlarm, id, title, hr, min, am_pm)
+  function appendAlarmToAlarmsList(currentAlarm, id, title, hr, min, am_pm, scriptIsLoading)
   {
     let alarm = currentAlarm;
     let alarmListItem = `
@@ -307,7 +305,7 @@ function initializeAlarm()
           <span class="alarm-list-id js--alarm-list-id">${id}</span>
           <i class="alarm-list-title js--alarm-list-title">${title}</i>
           <b class="alarm-list-time js--alarm-list-time">${hr}:${min}${am_pm}</b>
-          <button class="alarm-delete-button js--alarm-delete-button">&times; Remove</button>
+          <button class="alarm-delete-button js--alarm-delete-button"><b>&times; Remove</b></button>
         </div>
       </div>`;
     ID("alarms-list-wrapper").insertAdjacentHTML("beforeend", alarmListItem);
@@ -326,7 +324,8 @@ function initializeAlarm()
         alarm.remove(delButton);
         //to avoid display of alarms-list-wrapper side scroll bar on list-item deletion transition (animation)
         setTimeout(() => ID("alarms-list-wrapper").style.overflow = "auto", 1000);
-        delete localStorage[id];
+        try { delete localStorage[id]; }
+        catch (e) { toast("Something went wrong. <br />Couldn't perform delete operation.<br />Access to storage on your device was denie"); }
         ID(`${alarm.id}`).classList.remove("scale-dot");
         setTimeout(() => ID(`${alarm.id}`).parentNode.removeChild(ID(`${alarm.id}`)), 300);
       }, 550);
@@ -334,17 +333,21 @@ function initializeAlarm()
     });
 
     //adding alarm red dot description to clock
-    ID("clock-wrapper").insertAdjacentHTML("beforeend", `
+    let timeout = scriptIsLoading ? 2000 : 300; //animation delay
+    setTimeout(() => 
+    {
+      ID("clock-wrapper").insertAdjacentHTML("beforeend", `
         <i class="set-alarm-dot-wrapper" id="${alarm.id}">
           <i class="set-alarm-dot">
             <i class="alarm-dot-time js--alarm-dot-time">${alarm.id}</i>
           </i>
         </i>`);
-    let _top = (Math.cos(((30 * alarm.hr) + Number((30 * (alarm.min / 60)).toFixed(2))) * Math.PI / 180) * (clockRadius + 18)).toFixed(6);
-    let right = (Math.sin(((30 * alarm.hr) + Number((30 * (alarm.min / 60)).toFixed(2))) * Math.PI / 180) * (clockRadius + 18)).toFixed(6);
-    ID(`${alarm.id}`).style.top = `${(((clockRadius - 5)) - _top)}px`;
-    ID(`${alarm.id}`).style.right = `${(((clockRadius - 5.5)) - right)}px`;
-    setTimeout(() => ID(`${alarm.id}`).classList.add("scale-dot"), 300);
+      let _top = (Math.cos(((30 * alarm.hr) + Number((30 * (alarm.min / 60)).toFixed(2))) * Math.PI / 180) * (clockRadius + 18)).toFixed(6);
+      let right = (Math.sin(((30 * alarm.hr) + Number((30 * (alarm.min / 60)).toFixed(2))) * Math.PI / 180) * (clockRadius + 18)).toFixed(6);
+      ID(`${alarm.id}`).style.top = `${(((clockRadius - 5)) - _top)}px`;
+      ID(`${alarm.id}`).style.right = `${(((clockRadius - 5.5)) - right)}px`;
+      setTimeout(() => ID(`${alarm.id}`).classList.add("scale-dot"), 300);
+    }, timeout); 
   }
   
 
@@ -354,7 +357,9 @@ function initializeAlarm()
   fabButton.onclick = function()
   {
     //clears function timeout incase user dblclicks before function is completed 
-    
+    if (show_hide)
+      clearTimeout(show_hide);
+
     //using a setTimeout function to control show/hide misbehaviour on dblclick of fab button
     show_hide = setTimeout(() =>
     {
@@ -375,15 +380,15 @@ function initializeAlarm()
     for (let i = 0; i < queryAll(".alarm-list-item").length; i++)
       setTimeout(() => queryAll(".alarm-list-item")[i].style.marginLeft = "120%", 100);
   }
-  
-  
-  
+
+
+
+  //hides alarm on click of dark bg (similar to behaviours on mobile apps)
   darkBgOverlay.onclick = function(e)
   {
-    if (e.target == this && (addAlarmUIIsActive || alarmsListUIIsActive))
+    if (e.target == this && !activeAlarmUIIsActive)
       fabButton.onclick();
-  };
-
+  }
 
 
 
@@ -467,9 +472,6 @@ function initializeAlarm()
   //shows alarm / alarm container
   function showAlarmContainer(container, containerIndex)
   {
-    // if (addAlarmUIIsActive || alarmsListUIIsActive || activeAlarmUIIsActive)
-    //   return;
-
     if (containerIndex != 3)
       alarmContainer.classList.remove("scale");
     container = container && isNaN(container) ? container : addAlarmContainer;
@@ -484,8 +486,10 @@ function initializeAlarm()
       darkBgOverlay.style.background = "rgba(0, 0, 0, 0.5)";
       resizeAlarmContainer();
       if (activeAlarmUIIsActive)
-        alarmContainer.classList.add("scale"),
-        ID("alarm-tone").play();
+      {
+        alarmContainer.classList.add("scale");
+        
+      }
       setTimeout(() => container.style.opacity = 1, 350);
     }, 10);
     rotateFabIfIconIsCross(false);
@@ -599,7 +603,7 @@ function initializeAlarm()
   selectAlarmTone.onchange = function()
   {
     ID("alarm-tone-source").src = this.value;
-    ID("alarm-tone").load();
+    ID("alarm-tone-amazing").load();
   } 
 
 
@@ -686,7 +690,6 @@ function initializeAlarm()
   function addAlarmFunc(currentAlarm)
   {
     let alarm = currentAlarm;
-    //alarm.alarmActual24Hr = hr > 12 ? Number(alarm.hr) + 12 : (hr == 0 ? alarm.hr;
     if (alarm.am_pm == "PM")
       alarm.alarmActual24Hr = Number(alarm.hr) < 12 ? Number(alarm.hr) + 12 : Number(alarm.hr);
     else
@@ -763,10 +766,14 @@ function initializeAlarm()
     }
     
     //store/save 'manifest' of set alarm in localStorage
-    if (storageIsEnabled)
-      localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
-    else
-      setTimeout(() => toast(`Something went wrong. <br /> ${alarm.time} alarm was added but wasn't saved. <br />Ensure your browser cookies are enabled.`), 4000)
+    try
+    {
+      if (storageIsEnabled)
+        localStorage.setItem(alarm.id, JSON.stringify(alarmManifest));
+      else
+        setTimeout(() => toast(`${alarm.time} alarm was added but wasn't saved. <br />Consider enabling your browser cookies.`), 4000);
+    }
+    catch (e) { setTimeout(() => toast(`Something went wrong. <br />Couldn't save ${alarm.time} alarm. <br />Access to storage on your device was denied.`), 4000); } 
   }
 
 
@@ -800,8 +807,6 @@ function initializeAlarm()
     
     function activateAlarm()
     {
-      window.open('', 'js_clock').focus();
-      
       if (alarm.isSnoozed)
         hideOrShowSnoozeButton(true);
       else
@@ -816,13 +821,15 @@ function initializeAlarm()
       if (!activeAlarmUIIsActive)
       {
         ID("alarm-tone-source").src = alarm.alarmTone;
-        ID("alarm-tone").load();
+        console.log(ID("alarm-tone-amazing").load());
         setTimeout(() => {
           showAlarmContainer(activeAlarmContainer, 3);
           for (let tone in alarmTones)
-            if (alarmTones[tone] == alarm.alarmTone.replace(/tones\/(.+)\.mp3/, "$1")) 
+            if (new RegExp(alarmTones[tone]).test(alarm.alarmTone))
               toast(`Alarm tone: "${tone}"`);
         }, 1000);
+        playAlarmTone = ID("alarm-tone-amazing").play();
+        setTimeout(() => ID("alarm-tone-amazing").muted = false, 200);
       }
     
       let snoozeTime, snoozeGrammar;
@@ -931,8 +938,17 @@ function initializeAlarm()
   }
 
   //Say "Hello!" on page load
-  setTimeout(() => toast("Hello, there! Welcome. :)"), 1500);
+  setTimeout(() => {
+    toast("Hi, there! Welcome. 😊");
+    console.log("App loaded and ready.");
+  }, 1500);
 }
+
+
+
+// Alarm Script - END ----->
+
+
 
 
 
@@ -977,8 +993,6 @@ function toast(text)
     ID("toast-wrapper").style.transition = `opacity ${dur}s ease-out`;
   }
 }
-
-
 
 
 
