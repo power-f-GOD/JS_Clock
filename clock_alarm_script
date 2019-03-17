@@ -143,6 +143,8 @@ function initializeClock()
       toast("O! Man! You have just frozen time! *grins*<br />#TimeTraveller ;)");
       clearInterval(start);
   };
+  
+  initializeAlarm();
 };
 
 
